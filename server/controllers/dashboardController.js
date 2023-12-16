@@ -12,7 +12,7 @@ module.exports.dashboard = async (req, res) => {
   let page = Number(req.query.page || 1); // ? 2
 
   const locals = {
-    title: "DashBoard",
+    title: "Home DashBoard",
     description: "Free Notes App'Hoang",
   };
 
@@ -59,8 +59,14 @@ module.exports.dashboardViewNote = async (req, res) => {
       user: req.user.id,
     })
     .lean();
+
+  const locals = {
+    title: note.title,
+  };
+
   if (note) {
     res.render("dashboard/view-notes", {
+      locals,
       noteId: req.params.id,
       note,
       layout: "../views/layouts/dashboard",
@@ -146,6 +152,11 @@ module.exports.dashboardSearchNoteSubmit = async (req, res) => {
       ],
     }).where({ user: req.user.id });
 
+    const locals = {
+      title: "Dashboard Search",
+      description: "Free Notes App'Hoang",
+    };
+
     // const searchResults = await Note.find({
     //   $or: [
     //     {
@@ -158,6 +169,7 @@ module.exports.dashboardSearchNoteSubmit = async (req, res) => {
     // });
 
     res.render("dashboard/search", {
+      locals,
       searchResults,
       layout: "../views/layouts/dashboard",
     });
