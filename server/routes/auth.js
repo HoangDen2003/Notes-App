@@ -36,6 +36,9 @@ passport.use(
       } catch (error) {
         console.log(error);
       }
+
+      // console.log(profile);
+
       // return done(err, profile);
     }
   )
